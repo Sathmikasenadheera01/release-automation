@@ -76,15 +76,35 @@ const ReleaseAutomation = () => {
 
   const displayData = () => {
     console.log(groups)
-    groups.forEach(group => {
-      console.log(group)
+    groups.forEach((group:any) => {
+      if (group.subGroups) {
+        for (let index = 0; index < (group.subGroups).length; index++) {
+            console.log("subgroup: ", group.subGroups[index].name)
+
+        }
+      }else{
+        console.log(group.name)
+      }
     })
   }
 
     return (
+        <>
         <div>
         <button onClick={displayData}>display data</button>
       </div>
+
+        <div>
+        {groups.map((group:any) => (
+        <ul key={group.name}>
+            <li>{group.name}</li>
+            {group.subGroups && group.subGroups.map((subGroup:any, index:any) => (
+            <ol key={index}> &nbsp;{subGroup.name}</ol>
+            ))}
+        </ul>
+        ))}
+        </div>
+</>
     )
 }
 
